@@ -75,9 +75,19 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../store/cartSlice";
 import { getProducts } from "../store/productSlice";
-import { Card, Button, Container, Row, Col, Badge } from "react-bootstrap";
-import { FiShoppingCart, FiHeart, FiStar } from "react-icons/fi";
-import "./Product.css"; // We'll create this CSS file next
+import {
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+  Badge,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
+import { FiShoppingCart, FiHeart, FiStar, FiAlertCircle } from "react-icons/fi";
+import "./Product.css";
+import StatusCode from "../utils/statusCode";
 
 function Product() {
   const dispatch = useDispatch();
@@ -92,23 +102,26 @@ function Product() {
     // You could add a toast notification here
   };
 
-  // Loading state
-  if (status === "loading") {
+  if (status === StatusCode.LOADING) {
     return (
       <Container className="py-5 text-center">
-        <div className="spinner-border text-primary" role="status">
+        <div className="spinner-border text-primary" role="status" style={{ width: '3rem', height: '3rem' }}>
           <span className="visually-hidden">Loading...</span>
         </div>
+        <h3 className="mt-3">Loading Products...</h3>
       </Container>
     );
   }
 
-  // Error state
-  if (status === "error") {
+  if (status === StatusCode.ERROR) {
     return (
       <Container className="py-5 text-center">
-        <div className="alert alert-danger">
-          Failed to load products. Please try again later.
+        <div className="alert alert-danger d-flex align-items-center" role="alert">
+          <FiAlertCircle className="me-2" size={24} />
+          <div>
+            <h4 className="alert-heading">Oops! Something Went Wrong</h4>
+            <p>Failed to load products. Please try again later.</p>
+          </div>
         </div>
       </Container>
     );
@@ -120,7 +133,9 @@ function Product() {
         <Col>
           <div className="shop-header text-center">
             <h1 className="display-4">Our Collection</h1>
-            <p className="lead text-muted">Discover our premium selection of products</p>
+            <p className="lead text-muted">
+              Discover our premium selection of products
+            </p>
           </div>
         </Col>
       </Row>
@@ -137,32 +152,46 @@ function Product() {
                 <FiHeart />
               </div>
               <div className="product-img-wrapper">
-                <Card.Img variant="top" src={product.image} className="product-img" />
+                <Card.Img
+                  variant="top"
+                  src={product.image}
+                  className="product-img"
+                />
               </div>
               <Card.Body className="d-flex flex-column">
                 <div className="product-category text-muted small mb-1">
                   {product.category}
                 </div>
-                <Card.Title className="product-title">{product.title}</Card.Title>
+                <Card.Title className="product-title">
+                  {product.title}
+                </Card.Title>
                 <div className="product-rating mb-2">
-                  {[...Array(Math.floor(product.rating?.rate || 4))].map((_, i) => (
-                    <FiStar key={i} className="filled" />
-                  ))}
-                  {[...Array(5 - Math.floor(product.rating?.rate || 4))].map((_, i) => (
-                    <FiStar key={i} />
-                  ))}
-                  <span className="ms-1 small">({product.rating?.count || 0})</span>
+                  {[...Array(Math.floor(product.rating?.rate || 4))].map(
+                    (_, i) => (
+                      <FiStar key={i} className="filled" />
+                    )
+                  )}
+                  {[...Array(5 - Math.floor(product.rating?.rate || 4))].map(
+                    (_, i) => (
+                      <FiStar key={i} />
+                    )
+                  )}
+                  <span className="ms-1 small">
+                    ({product.rating?.count || 0})
+                  </span>
                 </div>
                 <Card.Text className="product-price mt-auto">
                   <span className="current-price">${product.price}</span>
                   {product.id % 3 === 0 && (
-                    <span className="original-price">${(product.price * 1.2).toFixed(2)}</span>
+                    <span className="original-price">
+                      ${(product.price * 1.2).toFixed(2)}
+                    </span>
                   )}
                 </Card.Text>
               </Card.Body>
               <Card.Footer className="bg-transparent border-top-0">
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   className="w-100 add-to-cart-btn"
                   onClick={() => addToCart(product)}
                 >

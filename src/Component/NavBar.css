@@ -1,0 +1,118 @@
+NavBar.css
+.custom-navbar {
+  background-color: white;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.brand-logo {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.brand-text {
+  background: linear-gradient(45deg, #0d6efd, #6610f2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.5rem;
+}
+
+.nav-link-custom {
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link-custom::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #0d6efd;
+  transition: width 0.3s ease;
+}
+
+.nav-link-custom:hover::after {
+  width: 100%;
+}
+
+.search-btn, .account-btn {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.search-btn:hover, .account-btn:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.cart-icon-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #212529;
+  transition: color 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.cart-icon-container:hover {
+  color: #0d6efd;
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: linear-gradient(45deg, #ff6b6b, #ff4757);
+  color: white;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(255, 71, 87, 0.3);
+  border: 2px solid white;
+  transition: transform 0.3s ease;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-text {
+  font-weight: 500;
+}
+
+@media (max-width: 991px) {
+  .cart-icon-container {
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+}

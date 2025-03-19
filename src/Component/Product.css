@@ -137,3 +137,35 @@
       font-size: 0.85rem;
     }
   }
+
+  /* Add these styles to your Product.css */
+
+/* Loading Spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.2em;
+  }
+  
+  /* Error Alert */
+  .alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .alert-danger .alert-heading {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .alert-danger p {
+    margin-bottom: 0;
+  }
+  
+  /* Icon in Error Alert */
+  .alert-danger .me-2 {
+    color: #721c24;
+  }

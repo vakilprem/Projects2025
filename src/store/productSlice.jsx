@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import StatusCode from "../utils/statusCode";
 
 // const apiUrl = process.env.REACT_APP_API_URL;
-const apiUrl = import.meta.env.VITE_API_URL; 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const initialState = {
   data: [],
-  status: "idle",
+  status: StatusCode.IDLE,
 };
 
 // Async thunk for fetching products
@@ -23,14 +24,14 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state, action) => {
-        state.status = "loading";
+        state.status = StatusCode.LOADING;
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.data = action.payload;
-        state.status = "succeeded";
+        state.status = StatusCode.IDLE;
       })
       .addCase(getProducts.rejected, (state, action) => {
-        state.status = "error";
+        state.status = StatusCode.ERROR;
       });
   },
 });
